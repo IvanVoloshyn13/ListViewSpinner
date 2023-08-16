@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupListViewSimple()
+        // setupListViewSimple()
+        setupListViewGeneratedData()
     }
 
     private fun setupListViewSimple() {
@@ -44,19 +45,43 @@ class MainActivity : AppCompatActivity() {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val selectedItemTitle = data[position][KEY_TITLE]
                 val selectedItemDescription = data[position][KEY_DESCRIPTION]
-                val dialog = AlertDialog.Builder(this)
-                    .setTitle(selectedItemTitle)
-                    .setMessage(selectedItemDescription)
-                    .setPositiveButton("Ok") { dialog, which ->
-                        Toast.makeText(this, "Close with OK button", Toast.LENGTH_SHORT).show()
-                    }
-                    .setNegativeButton("Cancel") { _, _ ->
-                        Toast.makeText(this, "Close with Cancel button", Toast.LENGTH_SHORT).show()
-                    }
-                    .create()
-                dialog.show()
+                showDialog(selectedItemTitle, selectedItemDescription)
             }
 
+    }
+
+    fun showDialog(selectedItemTitle: String?, selectedItemDescription: String?) {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(selectedItemTitle)
+            .setMessage(selectedItemDescription)
+            .setPositiveButton("Ok") { dialog, which ->
+                Toast.makeText(this, "Close with OK button", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+                Toast.makeText(this, "Close with Cancel button", Toast.LENGTH_SHORT).show()
+            }
+            .create()
+        dialog.show()
+    }
+
+    fun setupListViewGeneratedData() {
+        val data = (1..100).map {
+            mapOf(KEY_TITLE to "Item $it", KEY_DESCRIPTION to "Description $it")
+        }
+
+        val simpleAdapter = SimpleAdapter(
+            this,
+            data, R.layout.list_item,
+            arrayOf(KEY_TITLE, KEY_DESCRIPTION),
+            intArrayOf(R.id.tv_1, R.id.tv_2)
+        )
+        binding.listView.adapter = simpleAdapter
+        val listener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val item = data[position][KEY_TITLE]
+            val desc = data[position][KEY_DESCRIPTION]
+            showDialog(item, desc)
+        }
+        binding.listView.onItemClickListener = listener
     }
 
 

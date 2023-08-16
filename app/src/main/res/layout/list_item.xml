@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minHeight="?attr/listPreferredItemHeight"
-    android:mode="twoLine"
-    android:paddingStart="?attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?attr/listPreferredItemPaddingEnd">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/tv_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItem">
+        android:textColor="@color/purple_500"
+        android:textSize="24sp"
+        android:textStyle="bold">
 
     </TextView>
 
@@ -19,10 +19,9 @@
         android:id="@+id/tv_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_1"
-        android:layout_alignStart="@id/tv_1"
-        android:textAppearance="?attr/textAppearanceListItem">
+        android:textSize="14sp"
+        android:textStyle="italic">
 
     </TextView>
 
-</TwoLineListItem>
+</LinearLayout>
